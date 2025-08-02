@@ -37,13 +37,19 @@ export default function Signup() {
 
         setLoading(true)
         try {
-            const res = await fetch("/api/signup", {
+            const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/accounts/register/`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(formData),
             })
 
             const data = await res.json()
+            if (res.ok) {
+                localStorage.setItem("access_token", data.access_token);
+                localStorage.setItem("refresh_token", data.refresh_token);
+                localStorage.setItem("department_id", data.department_id);
+                window.location.href = "/department";
+            }
             if (!res.ok) {
                 setErrors(data.errors || { general: "Signup failed" })
                 return

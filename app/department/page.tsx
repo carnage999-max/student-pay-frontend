@@ -37,11 +37,12 @@ export default function DepartmentProfilePage() {
     }, []);
 
     useEffect(() => {
-        if (token) {
-            fetchDepartmentById(token)
+        const id = localStorage.getItem("department_id");
+        if (id) {
+            fetchDepartmentById(id)
                 .then((data) => {
                     reset({
-                        departmentName: data?.department_name || "",
+                        departmentName: data?.dept_name || "",
                         bankName: data?.bank_name || "",
                         accountNumber: data?.account_number || "",
                         accountName: data?.account_name || "",
@@ -49,7 +50,7 @@ export default function DepartmentProfilePage() {
                 })
                 .catch((err) => console.error("Failed to fetch department info", err));
         }
-    }, [token, reset]);
+    }, [reset]);
 
     const onSubmit = async (data: ProfileFormData) => {
         try {
@@ -104,6 +105,7 @@ export default function DepartmentProfilePage() {
                         <input
                             {...register("accountName")}
                             className="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-sm text-gray-900 bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            disabled
                         />
                         {errors.accountName && (
                             <p className="text-red-500 text-sm">{errors.accountName.message}</p>
