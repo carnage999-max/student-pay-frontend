@@ -5,6 +5,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { useState, useEffect } from "react";
 import { updateDepartmentInfo } from "@/app/lib/api/updateInfo";
+import { fetchDepartmentById } from "@/app/lib/api/departments";
 
 const profileSchema = z.object({
     departmentName: z.string().min(2, "Department name is required"),
@@ -20,6 +21,7 @@ export default function DepartmentProfilePage() {
         register,
         handleSubmit,
         formState: { errors, isSubmitting },
+        reset, // <-- used to prefill form
     } = useForm<ProfileFormData>({
         resolver: zodResolver(profileSchema),
     });
@@ -29,8 +31,25 @@ export default function DepartmentProfilePage() {
 
     useEffect(() => {
         const stored = localStorage.getItem("token");
-        if (stored) setToken(stored);
+        if (stored) {
+            setToken(stored);
+        }
     }, []);
+
+    useEffect(() => {
+        if (token) {
+            fetchDepartmentById(token)
+                .then((data) => {
+                    reset({
+                        departmentName: data?.department_name || "",
+                        bankName: data?.bank_name || "",
+                        accountNumber: data?.account_number || "",
+                        accountName: data?.account_name || "",
+                    });
+                })
+                .catch((err) => console.error("Failed to fetch department info", err));
+        }
+    }, [token, reset]);
 
     const onSubmit = async (data: ProfileFormData) => {
         try {
@@ -44,60 +63,61 @@ export default function DepartmentProfilePage() {
     return (
         <div className="flex items-center justify-center min-h-screen bg-gray-50 px-4">
             <div className="w-full max-w-md bg-white p-8 rounded-2xl shadow-md border border-gray-200">
-            <h1 className="text-2xl font-bold mb-4">Update Department Profile</h1>
-            <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-                <div>
-                    <label className="block text-sm font-medium">Department Name</label>
-                    <input
-                        {...register("departmentName")}
-                        className="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-gray-50"
-                    />
-                    {errors.departmentName && (
-                        <p className="text-red-500 text-sm">{errors.departmentName.message}</p>
-                    )}
-                </div>
+                <h1 className="text-2xl font-bold mb-4">Update Department Profile</h1>
+                <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+                    {/* form fields remain unchanged */}
+                    <div>
+                        <label className="block text-sm font-medium">Department Name</label>
+                        <input
+                            {...register("departmentName")}
+                            className="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-sm text-gray-900 bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        />
+                        {errors.departmentName && (
+                            <p className="text-red-500 text-sm">{errors.departmentName.message}</p>
+                        )}
+                    </div>
 
-                <div>
-                    <label className="block text-sm font-medium">Bank Name</label>
-                    <input
-                        {...register("bankName")}
-                        className="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-gray-50"
-                    />
-                    {errors.bankName && (
-                        <p className="text-red-500 text-sm">{errors.bankName.message}</p>
-                    )}
-                </div>
+                    <div>
+                        <label className="block text-sm font-medium">Bank Name</label>
+                        <input
+                            {...register("bankName")}
+                            className="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-sm text-gray-900 bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        />
+                        {errors.bankName && (
+                            <p className="text-red-500 text-sm">{errors.bankName.message}</p>
+                        )}
+                    </div>
 
-                <div>
-                    <label className="block text-sm font-medium">Account Number</label>
-                    <input
-                        {...register("accountNumber")}
-                        className="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-gray-50"
-                    />
-                    {errors.accountNumber && (
-                        <p className="text-red-500 text-sm">{errors.accountNumber.message}</p>
-                    )}
-                </div>
+                    <div>
+                        <label className="block text-sm font-medium">Account Number</label>
+                        <input
+                            {...register("accountNumber")}
+                            className="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-sm text-gray-900 bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        />
+                        {errors.accountNumber && (
+                            <p className="text-red-500 text-sm">{errors.accountNumber.message}</p>
+                        )}
+                    </div>
 
-                <div>
-                    <label className="block text-sm font-medium">Account Name</label>
-                    <input
-                        {...register("accountName")}
-                        className="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-gray-50"
-                    />
-                    {errors.accountName && (
-                        <p className="text-red-500 text-sm">{errors.accountName.message}</p>
-                    )}
-                </div>
+                    <div>
+                        <label className="block text-sm font-medium">Account Name</label>
+                        <input
+                            {...register("accountName")}
+                            className="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-sm text-gray-900 bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        />
+                        {errors.accountName && (
+                            <p className="text-red-500 text-sm">{errors.accountName.message}</p>
+                        )}
+                    </div>
 
-                <button
-                    type="submit"
-                    disabled={isSubmitting}
-                    className="w-full text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm py-2.5 transition"
-                >
-                    {isSubmitting ? "Updating..." : "Update Profile"}
-                </button>
-            </form>
+                    <button
+                        type="submit"
+                        disabled={isSubmitting}
+                        className="w-full text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm py-2.5 transition"
+                    >
+                        {isSubmitting ? "Updating..." : "Update Profile"}
+                    </button>
+                </form>
             </div>
 
             {/* Success Modal */}

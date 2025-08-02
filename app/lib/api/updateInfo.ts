@@ -1,8 +1,8 @@
 // app/lib/api.ts
 export async function updateDepartmentInfo(data: any, token: string) {
     try {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/department/update-profile`, {
-            method: "POST",
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/accounts/department/`, {
+            method: "PUT",
             headers: {
                 "Content-Type": "application/json",
                 Authorization: `Bearer ${token}`,
