@@ -40,7 +40,7 @@ export default function PaymentFormPage() {
         const loadData = async () => {
             try {
                 const [pay, dept] = await Promise.all([
-                    fetchPaymentById(payment_id),
+                    fetchPaymentById(payment_id, department_id),
                     fetchDepartmentById(department_id),
                 ]);
                 setPayment(pay);

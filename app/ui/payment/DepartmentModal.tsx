@@ -25,7 +25,7 @@ export default function DepartmentModal({
     useEffect(() => {
         const load = async () => {
             try {
-                const data = await fetchPaymentsByDepartment();
+                const data = await fetchPaymentsByDepartment(department.id);
                 setPayments(data);
             } catch (err) {
                 console.error('Failed to fetch payments:', err);

@@ -8,8 +8,8 @@ import { createPayment } from '@/app/lib/api/createPayment';
 import Modal from '@/app/ui/Modal';
 
 const PaymentSchema = z.object({
-    title: z.string().min(1, "Payment title is required"),
-    amount_expected: z.string().min(1, "Amount is required"),
+    payment_for: z.string().min(1, "Payment title is required"),
+    amount_due: z.string().min(1, "Amount is required"),
 });
 
 type PaymentForm = z.infer<typeof PaymentSchema>;
@@ -28,7 +28,7 @@ export default function CreatePaymentPage() {
     const [responseMsg, setResponseMsg] = useState('');
 
     const onSubmit = async (data: PaymentForm) => {
-        const token = localStorage.getItem('token');
+        const token = localStorage.getItem('access_token');
         const res = await createPayment(data, token);
 
         if (res.success) {
@@ -51,11 +51,11 @@ export default function CreatePaymentPage() {
                         <label className="block font-medium">Payment Title</label>
                         <input
                             type="text"
-                            {...register('title')}
+                            {...register('payment_for')}
                             className="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-gray-50"
                         />
-                        {errors.title && (
-                            <p className="text-red-600 text-sm">{errors.title.message}</p>
+                        {errors.payment_for && (
+                            <p className="text-red-600 text-sm">{errors.payment_for.message}</p>
                         )}
                     </div>
 
@@ -63,11 +63,11 @@ export default function CreatePaymentPage() {
                         <label className="block font-medium">Amount Expected (₦)</label>
                         <input
                             type="number"
-                            {...register('amount_expected')}
+                            {...register('amount_due')}
                             className="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-gray-50"
                         />
-                        {errors.amount_expected && (
-                            <p className="text-red-600 text-sm">{errors.amount_expected.message}</p>
+                        {errors.amount_due && (
+                            <p className="text-red-600 text-sm">{errors.amount_due.message}</p>
                         )}
                     </div>
 

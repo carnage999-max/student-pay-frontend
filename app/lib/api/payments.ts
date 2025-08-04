@@ -1,14 +1,14 @@
 const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
 
-export async function fetchPaymentsByDepartment() {
-    const res = await fetch(`${BASE_URL}/pay/payment/`);
+export async function fetchPaymentsByDepartment(department_id: string) {
+    const res = await fetch(`${BASE_URL}/accounts/department/${department_id}/payment/`);
     if (!res.ok) throw new Error('Failed to fetch payments');
     let response = res.json();
     return response;
 }
 
-export async function fetchPaymentById(payment_id: string) {
-    const res = await fetch(`${BASE_URL}/pay/payment/${payment_id}/`);
+export async function fetchPaymentById(payment_id: string, department_id: string) {
+    const res = await fetch(`${BASE_URL}/accounts/department/${department_id}/payment/${payment_id}/`);
     if (!res.ok) throw new Error('Failed to fetch payment');
     return res.json();
 }

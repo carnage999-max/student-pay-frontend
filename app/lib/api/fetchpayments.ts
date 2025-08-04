@@ -6,8 +6,6 @@ export async function fetchPayments() {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
-                // Uncomment this later when adding auth protection
-                // Authorization: `Bearer ${yourAuthToken}`,
             },
             cache: "no-store",
         });
