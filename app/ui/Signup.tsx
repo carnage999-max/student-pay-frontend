@@ -1,6 +1,7 @@
 "use client"
 import { useState } from "react";
 import { Eye, EyeOff } from "lucide-react";
+import { BUTTON_PRIMARY, INPUT } from "./constants";
 
 export default function Signup() {
     const [formData, setFormData] = useState({
@@ -83,7 +84,7 @@ export default function Signup() {
                             value={formData.email}
                             onChange={handleChange}
                             className={`bg-gray-50 border ${errors.email ? "border-red-500" : "border-gray-300"
-                                } text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5`}
+                                } ${INPUT}`}
                             placeholder="name@example.com"
                         />
                         {errors.email && (
@@ -101,7 +102,7 @@ export default function Signup() {
                             value={formData.department}
                             onChange={handleChange}
                             className={`bg-gray-50 border ${errors.department ? "border-red-500" : "border-gray-300"
-                                } text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5`}
+                                } ${INPUT}`}
                             placeholder="e.g. Computer Science"
                         />
                         {errors.department && (
@@ -120,7 +121,7 @@ export default function Signup() {
                                 value={formData.password}
                                 onChange={handleChange}
                                 className={`bg-gray-50 border ${errors.password ? "border-red-500" : "border-gray-300"
-                                    } text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pr-10 p-2.5`}
+                                    } ${INPUT}`}
                                 placeholder="••••••••"
                             />
                             <button
@@ -139,7 +140,7 @@ export default function Signup() {
                     <button
                         type="submit"
                         disabled={loading}
-                        className="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5"
+                        className={BUTTON_PRIMARY}
                     >
                         {loading ? "Creating account..." : "Create Account"}
                     </button>

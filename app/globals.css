@@ -24,3 +24,11 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+.sidebar-link {
+  @apply flex items-center gap-2 px-2 py-2 rounded hover:text-emerald-600 hover:bg-emerald-50;
+}
+
+.sidebar-link-active {
+  @apply bg-emerald-100 text-emerald-700 font-medium;
+}

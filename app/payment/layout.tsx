@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
+import { BUTTON_SECONDARY } from '../ui/constants';
 
 export default function PaymentLayout({ children }: { children: React.ReactNode }) {
     const searchParams = useSearchParams();
@@ -18,7 +19,7 @@ export default function PaymentLayout({ children }: { children: React.ReactNode 
                 <h1 className="text-2xl font-bold text-black">Student Payment Portal</h1>
                 <Link
                     href={backLink}
-                    className="text-sm text-blue-600 hover:underline"
+                    className={BUTTON_SECONDARY}
                 >
                     ← Leave Payment
                 </Link>

@@ -1,5 +1,7 @@
 // app/lib/logout.ts
 export async function logout() {
-  localStorage.removeItem('token'); // Remove JWT from localStorage
-  window.location.href = '/department/login'; // Redirect to login
+  localStorage.removeItem('access_token');
+  localStorage.removeItem('refresh_token');
+  localStorage.removeItem('department_id');
+  window.location.href = '/department/login';
 }

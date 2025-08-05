@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { Eye, EyeOff } from "lucide-react";
+import { BUTTON_PRIMARY, LABEL, INPUT } from '@/app/ui/constants';
 
 export default function Login() {
     const [formData, setFormData] = useState({ email: "", password: "" });
@@ -60,7 +61,7 @@ export default function Login() {
                             value={formData.email}
                             onChange={handleChange}
                             required
-                            className="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-sm bg-gray-50"
+                            className="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-sm text-gray-900 bg-gray-50 focus:outline-none focus:ring-2 focus:ring-emerald-500"
                         />
                     </div>
                     <div>
@@ -72,7 +73,7 @@ export default function Login() {
                                 value={formData.password}
                                 onChange={handleChange}
                                 required
-                                className="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-sm bg-gray-50 pr-10"
+                                className={INPUT}
                             />
                             <button
                                 type="button"
@@ -86,7 +87,7 @@ export default function Login() {
                     <button
                         type="submit"
                         disabled={loading}
-                        className="w-full text-white bg-blue-600 hover:bg-blue-700 rounded-lg text-sm py-2.5 transition"
+                        className={BUTTON_PRIMARY}
                     >
                         {loading ? "Logging in..." : "Login"}
                     </button>

@@ -5,6 +5,7 @@ import { fetchDashboardStats } from '@/app/lib/api/dashboard';
 import RecentPayments from '@/app/ui/dashboard/RecentPayments';
 import DashboardChart from '@/app/ui/dashboard/DashboardChart';
 import StatCard from '@/app/ui/dashboard/StatCard';
+import { useAuthGuard } from '@/app/lib/hooks/useAuth';
 
 type DashboardStats = {
     total_payments: number;
@@ -21,6 +22,7 @@ const initialStats: DashboardStats = {
 };
 
 export default function DashboardPage() {
+    useAuthGuard();
     const [stats, setStats] = useState<DashboardStats>(initialStats);
     const [error, setError] = useState('');
 

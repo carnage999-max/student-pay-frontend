@@ -5,6 +5,7 @@ import { useSearchParams } from 'next/navigation';
 import { fetchPaymentById, initiatePayment } from '@/app/lib/api/payments';
 import { fetchDepartmentById } from '@/app/lib/api/departments';
 import { ArrowBigRightIcon } from 'lucide-react';
+import { BUTTON_PRIMARY, INPUT } from '@/app/ui/constants';
 
 interface Payment {
     id: string;
@@ -110,7 +111,7 @@ export default function PaymentFormPage() {
                             onChange={handleChange}
                             placeholder="Email"
                             required
-                            className="w-full border px-3 py-2 rounded text-black"
+                            className={INPUT}
                         />
                         <input
                             type="text"
@@ -119,7 +120,7 @@ export default function PaymentFormPage() {
                             onChange={handleChange}
                             placeholder="First Name"
                             required
-                            className="w-full border px-3 py-2 rounded text-black"
+                            className={INPUT}
                         />
                         <input
                             type="text"
@@ -128,20 +129,20 @@ export default function PaymentFormPage() {
                             onChange={handleChange}
                             placeholder="Last Name"
                             required
-                            className="w-full text-black border px-3 py-2 rounded"
+                            className={INPUT}
                         />
                         <input
                             type="text"
                             name="amount"
                             value={`Amount: ${payment?.amount_due ?? ''}`}
                             readOnly
-                            className="w-full bg-gray-100 text-gray-600 px-3 py-2 rounded"
+                            className={INPUT}
                         />
 
                         <button
                             type="submit"
                             disabled={submitting}
-                            className="w-full text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm py-2.5 transition"
+                            className={BUTTON_PRIMARY}
                         >
                             {submitting ? 'Processing...' : `Pay now => ${payment?.amount_due ?? ''}`}
                         </button>
