@@ -9,16 +9,14 @@ import { useAuthGuard } from '@/app/lib/hooks/useAuth';
 
 type DashboardStats = {
     total_payments: number;
-    total_amount_expected: number;
-    total_amount_paid: number;
-    total_students_paid: number;
+    total_amount: number;
+    total_transactions: number;
 };
 
 const initialStats: DashboardStats = {
     total_payments: 0,
-    total_amount_expected: 0,
-    total_amount_paid: 0,
-    total_students_paid: 0,
+    total_amount: 0,
+    total_transactions: 0,
 };
 
 export default function DashboardPage() {
@@ -29,7 +27,7 @@ export default function DashboardPage() {
     useEffect(() => {
         const loadStats = async () => {
             try {
-                const token = localStorage.getItem('token') || '';
+                const token = localStorage.getItem('access_token') || '';
                 const data = await fetchDashboardStats(token);
                 setStats(data);
             } catch (err: any) {
@@ -54,9 +52,8 @@ export default function DashboardPage() {
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
                 <StatCard title="Payments Created" value={stats.total_payments} />
-                <StatCard title="Amount Expected" value={`₦${stats.total_amount_expected.toLocaleString()}`} />
-                <StatCard title="Amount Paid" value={`₦${stats.total_amount_paid.toLocaleString()}`} />
-                <StatCard title="Students Paid" value={stats.total_students_paid} />
+                <StatCard title="Amount Paid" value={`₦${stats.total_amount.toLocaleString()}`} />
+                <StatCard title="Transactions" value={stats.total_transactions} />
             </div>
             <div className="space-y-8">
                 <DashboardChart />

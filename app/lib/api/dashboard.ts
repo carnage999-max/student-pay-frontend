@@ -2,7 +2,7 @@
 const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
 
 export async function fetchDashboardStats(token: string) {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/department/stats/`, {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/pay/pay/stats/`, {
         headers: {
             Authorization: `Bearer ${token}`,
         },

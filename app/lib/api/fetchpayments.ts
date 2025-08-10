@@ -2,7 +2,7 @@ export async function fetchPayments() {
     const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
 
     try {
-        const response = await fetch(`${baseUrl}/payment/`, {
+        const response = await fetch(`${baseUrl}/pay/pay/?page=3`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",

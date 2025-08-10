@@ -48,6 +48,39 @@ export default function PaymentSuccessPage() {
         );
     }
 
+    const downloadReceipt = async (url: string | null) => {
+        if (!url) return;
+        try {
+            // Try fetching blob to force download (works reliably for same-origin or CORS-enabled resources)
+            const res = await fetch(url);
+            if (!res.ok) throw new Error("Could not fetch receipt");
+            const blob = await res.blob();
+            const blobUrl = URL.createObjectURL(blob);
+            const anchor = document.createElement("a");
+            anchor.href = blobUrl;
+
+            // infer a filename from the url
+            const filename = (() => {
+                try {
+                    const u = new URL(url);
+                    const last = u.pathname.split("/").pop() || "receipt.pdf";
+                    return last.includes(".") ? last : `${last}.pdf`;
+                } catch {
+                    return "receipt.pdf";
+                }
+            })();
+
+            anchor.download = filename;
+            document.body.appendChild(anchor);
+            anchor.click();
+            anchor.remove();
+            URL.revokeObjectURL(blobUrl);
+        } catch (err) {
+            // fallback: open in new tab
+            window.open(url, "_blank", "noopener,noreferrer");
+        }
+    };
+
     return (
         <div className="max-w-5xl mx-auto px-6 py-12">
             <h1 className="text-3xl font-semibold text-center text-emerald-600 mb-4">
@@ -74,7 +107,10 @@ export default function PaymentSuccessPage() {
             <div className="text-center mt-8">
                 <a
                     href={receiptUrl}
-                    download
+                    onClick={(e) => {
+                        e.preventDefault();
+                        downloadReceipt(receiptUrl);
+                    }}
                     className="inline-block bg-emerald-600 hover:bg-emerald-700 text-white font-medium px-6 py-3 rounded-md transition-colors"
                 >
                     Download Receipt PDF

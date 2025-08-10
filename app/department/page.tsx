@@ -63,7 +63,7 @@ export default function DepartmentProfilePage() {
                 });
 
                 setAccountName(data?.account_name || "");
-                setLogoPreview(data?.logo || null);
+                setLogoPreview(data?.logo_url || null);
                 setPresidentSigPreview(data?.president_signature_url || null);
                 setSecretarySigPreview(data?.secretary_signature_url || null);
             } catch (err) {
