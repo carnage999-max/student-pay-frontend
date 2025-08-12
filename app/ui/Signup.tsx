@@ -7,7 +7,7 @@ export default function Signup() {
     const [formData, setFormData] = useState({
         email: "",
         password: "",
-        department: "",
+        dept_name: "",
     })
     const [showPassword, setShowPassword] = useState(false)
     const [errors, setErrors] = useState<{ [key: string]: string }>({})
@@ -26,7 +26,7 @@ export default function Signup() {
         if (!passwordRegex.test(formData.password))
             errs.password =
                 "Password must be 8+ chars, with uppercase, lowercase, number & special character"
-        if (!formData.department) errs.department = "Department is required"
+        if (!formData.dept_name) errs.dept_name = "Department is required"
 
         setErrors(errs)
         return Object.keys(errs).length === 0
@@ -98,15 +98,15 @@ export default function Signup() {
                         </label>
                         <input
                             type="text"
-                            name="department"
-                            value={formData.department}
+                            name="dept_name"
+                            value={formData.dept_name}
                             onChange={handleChange}
-                            className={`bg-gray-50 border ${errors.department ? "border-red-500" : "border-gray-300"
+                            className={`bg-gray-50 border ${errors.dept_name ? "border-red-500" : "border-gray-300"
                                 } ${INPUT}`}
                             placeholder="e.g. Computer Science"
                         />
-                        {errors.department && (
-                            <p className="mt-1 text-xs text-red-600">{errors.department}</p>
+                        {errors.dept_name && (
+                            <p className="mt-1 text-xs text-red-600">{errors.dept_name}</p>
                         )}
                     </div>
 
