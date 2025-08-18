@@ -27,7 +27,7 @@ export default function DepartmentLayout({ children }: { children: ReactNode }) 
 
     const navItems = [
         { href: '/department/dashboard', label: 'Dashboard', icon: <Home size={18} /> },
-        { href: '/department/create-payment', label: 'Create Payment', icon: <PlusCircle size={18} /> },
+        { href: '/department/payments', label: 'Payments', icon: <PlusCircle size={18} /> },
         { href: '/department', label: 'Manage Info', icon: <Settings size={18} /> },
     ];
 

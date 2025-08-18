@@ -92,7 +92,7 @@ export default function HomePage() {
           {
             !loggedIn ? (
               <Link
-                href="/department/payment"
+                href="/department/departments"
                 className="bg-gray-100 hover:bg-gray-200 text-gray-800 px-6 py-3 rounded-md font-medium text-center"
               >
                 Make a Payment

@@ -6,6 +6,7 @@ import RecentPayments from '@/app/ui/dashboard/RecentPayments';
 import DashboardChart from '@/app/ui/dashboard/DashboardChart';
 import StatCard from '@/app/ui/dashboard/StatCard';
 import { useAuthGuard } from '@/app/lib/hooks/useAuth';
+import Link from 'next/link';
 
 type DashboardStats = {
     total_payments: number;
@@ -33,7 +34,6 @@ export default function DashboardPage() {
             } catch (err: any) {
                 setError('Could not load stats');
                 console.error(err);
-                // Leave initial stats as fallback values
             }
         };
 
@@ -51,9 +51,13 @@ export default function DashboardPage() {
             )}
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
-                <StatCard title="Payments Created" value={stats.total_payments} />
+                <Link href="/department/payments" className="no-underline">
+                    <StatCard title="Payments Created" value={stats.total_payments} />
+                </Link>
                 <StatCard title="Amount Paid" value={`₦${stats.total_amount.toLocaleString()}`} />
-                <StatCard title="Transactions" value={stats.total_transactions} />
+                <Link href="/department/dashboard/transactions" className="no-underline">
+                    <StatCard title="Transactions" value={stats.total_transactions} />
+                </Link>
             </div>
             <div className="space-y-8">
                 <DashboardChart />

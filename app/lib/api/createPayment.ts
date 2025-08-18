@@ -1,6 +1,5 @@
 export async function createPayment(data: any, token: string | null) {
-    const department_id = localStorage.getItem('department_id');;
-    data.department = department_id
+    const department_id = localStorage.getItem('department_id');
     console.log(JSON.stringify(data));
     try {
         const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/accounts/department/${department_id}/payment/`, {
