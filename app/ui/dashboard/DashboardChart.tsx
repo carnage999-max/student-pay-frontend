@@ -10,6 +10,7 @@ import {
     Title,
     Tooltip,
     Legend,
+    ChartData,
 } from "chart.js";
 
 ChartJS.register(
@@ -22,8 +23,20 @@ ChartJS.register(
     Legend
 );
 
+// Define the Transaction interface
+interface Transaction {
+    created_at: string;
+    amount_paid: number | string;
+}
+
+// Define the API response structure
+interface ApiResponse {
+    results: Transaction[];
+}
+
 export default function DashboardChart() {
-    const [chartData, setChartData] = useState<any>(null);
+    // Use ChartData type for chartData
+    const [chartData, setChartData] = useState<ChartData<"line"> | null>(null);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
@@ -37,11 +50,11 @@ export default function DashboardChart() {
                     }
                 );
 
-                const data = await res.json();
+                const data: ApiResponse = await res.json();
                 if (Array.isArray(data.results)) {
                     // Group transactions by date
                     const grouped: Record<string, number> = {};
-                    data.results.forEach((txn) => {
+                    data.results.forEach((txn: Transaction) => {
                         const date = new Date(txn.created_at).toLocaleDateString();
                         grouped[date] = (grouped[date] || 0) + Number(txn.amount_paid);
                     });

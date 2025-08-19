@@ -50,10 +50,10 @@ export default function DepartmentProfilePage() {
             try {
                 const bankRes = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/pay/list-banks/`);
                 const bankData = await bankRes.json();
-                const uniqueBanks = Array.from(
+                const uniqueBanks: unknown[] = Array.from(
                     new Map(bankData.map((bank: any) => [bank.name, bank])).values()
                 );
-                setBanks(uniqueBanks);
+                setBanks(uniqueBanks as { name: string; code: string; }[]);
 
                 const data = await fetchDepartmentById(id);
                 reset({
@@ -107,8 +107,8 @@ export default function DepartmentProfilePage() {
     const renderImageUploader = (
         label: string,
         currentPreview: string | null,
-        setter: (file: File | null) => void,
-        previewSetter: (url: string | null) => void
+        setter: React.Dispatch<React.SetStateAction<File | null>>,
+        previewSetter: React.Dispatch<React.SetStateAction<string | null>>
     ) => (
         <div className="text-center">
             <p className="text-xs text-gray-600 mb-1">{label}</p>
