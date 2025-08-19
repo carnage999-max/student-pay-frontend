@@ -10,6 +10,7 @@ export const useAuthGuard = () => {
     const router = useRouter();
 
     useEffect(() => {
+        if (typeof window === "undefined") return;
         const check = async () => {
             if (!isAuthenticated()) {
                 router.replace('/department/login?reason=unauthorized');
