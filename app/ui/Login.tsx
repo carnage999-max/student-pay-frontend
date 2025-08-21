@@ -50,7 +50,7 @@ export default function Login() {
     return (
         <div className="flex items-center justify-center min-h-screen bg-gray-50 px-4">
             <div className="w-full max-w-md bg-white p-8 rounded-2xl shadow-md border border-gray-200">
-                <h2 className="text-3xl font-semibold text-center text-gray-800 mb-6">Login</h2>
+                <h2 className="mb-4 text-2xl font-bold text-gray-900 text-center">Login</h2>
                 {error && <p className="text-red-500 text-sm mb-4">{error}</p>}
                 <form onSubmit={handleSubmit} className="space-y-5">
                     <div>
@@ -58,6 +58,7 @@ export default function Login() {
                         <input
                             type="email"
                             name="email"
+                            title="Enter your email address"
                             value={formData.email}
                             onChange={handleChange}
                             required
@@ -70,6 +71,7 @@ export default function Login() {
                             <input
                                 type={showPassword ? "text" : "password"}
                                 name="password"
+                                title="Enter your password"
                                 value={formData.password}
                                 onChange={handleChange}
                                 required
@@ -78,6 +80,7 @@ export default function Login() {
                             <button
                                 type="button"
                                 onClick={() => setShowPassword(!showPassword)}
+                                title="Toggle password visibility"
                                 className="absolute inset-y-0 right-2 flex items-center text-gray-600"
                             >
                                 {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
@@ -88,10 +91,19 @@ export default function Login() {
                         type="submit"
                         disabled={loading}
                         className={BUTTON_PRIMARY}
+                        title="Login to your account"
                     >
                         {loading ? "Logging in..." : "Login"}
                     </button>
                 </form>
+                <div className="mt-6 text-center">
+                    <p className="mt-4 text-sm text-gray-600">
+                        Don't have an account?{" "}
+                        <a href="/department/signup" className="text-emerald-600 hover:underline">
+                            Register here
+                        </a>
+                    </p>
+                </div>
             </div>
         </div>
     );

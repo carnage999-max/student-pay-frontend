@@ -66,14 +66,14 @@ export default function Signup() {
 
     return (
         <div className="flex items-center justify-center h-screen">
-            <div className="max-w-sm w-full p-8 bg-white border border-gray-200 rounded-lg shadow">
+            <div className="w-full max-w-md bg-white p-8 rounded-2xl shadow-md border border-gray-200">
                 <h2 className="mb-4 text-2xl font-bold text-gray-900">Sign Up</h2>
 
                 {errors.general && (
                     <div className="mb-4 text-sm text-red-600">{errors.general}</div>
                 )}
 
-                <form className="space-y-4" onSubmit={handleSubmit}>
+                <form className="space-y-5" onSubmit={handleSubmit}>
                     <div>
                         <label className="block mb-2 text-sm font-medium text-gray-900">
                             Email
@@ -82,6 +82,7 @@ export default function Signup() {
                             type="email"
                             name="email"
                             value={formData.email}
+                            title="Enter your email address"
                             onChange={handleChange}
                             className={`bg-gray-50 border ${errors.email ? "border-red-500" : "border-gray-300"
                                 } ${INPUT}`}
@@ -100,6 +101,7 @@ export default function Signup() {
                             type="text"
                             name="dept_name"
                             value={formData.dept_name}
+                            title="Enter your department name"
                             onChange={handleChange}
                             className={`bg-gray-50 border ${errors.dept_name ? "border-red-500" : "border-gray-300"
                                 } ${INPUT}`}
@@ -119,6 +121,7 @@ export default function Signup() {
                                 type={showPassword ? "text" : "password"}
                                 name="password"
                                 value={formData.password}
+                                title="Enter your password"
                                 onChange={handleChange}
                                 className={`bg-gray-50 border ${errors.password ? "border-red-500" : "border-gray-300"
                                     } ${INPUT}`}
@@ -127,6 +130,7 @@ export default function Signup() {
                             <button
                                 type="button"
                                 onClick={() => setShowPassword(!showPassword)}
+                                title="Toggle password visibility"
                                 className="absolute inset-y-0 right-2 flex items-center text-gray-600"
                             >
                                 {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
@@ -141,10 +145,17 @@ export default function Signup() {
                         type="submit"
                         disabled={loading}
                         className={BUTTON_PRIMARY}
+                        title="Create your account"
                     >
                         {loading ? "Creating account..." : "Create Account"}
                     </button>
                 </form>
+                <div className="mt-4 text-center text-sm text-gray-600">
+                    Already have an account?{" "}
+                    <a href="/department/login" className="text-emerald-600 hover:underline">
+                        Login here
+                    </a>
+                </div>
             </div>
         </div>
     );
