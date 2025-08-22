@@ -6,6 +6,7 @@ export const metadata = {
   title: 'Student Pay',
   applicationName: 'Student Pay',
   referrer: 'origin-when-cross-origin',
+  metadataBase: new URL("https://student-pay.sevalla.app"),
   keywords: ['payment', 'receipt generation', 'university payments', 'departments', 'students', 'secure', 'simple', 'fast', 'StudentPay'],
   authors: [{ name: 'Ezekiel Okebule' , url: 'https://github.com/carnage999-max'},],
   creator: 'Ezekiel Okebule(11011)',
