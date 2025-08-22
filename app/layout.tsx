@@ -11,22 +11,22 @@ export const metadata = {
   authors: [{ name: 'Ezekiel Okebule' , url: 'https://github.com/carnage999-max'},],
   creator: 'Ezekiel Okebule(11011)',
   publisher: '11011',
-  // openGraph: {
-  //   title: 'Student Pay',
-  //   description: 'Seamless payment and receipt generation for university departments and students. Secure. Simple. Fast.',
-  //   url: 'https://student-pay.sevalla.app',
-  //   siteName: 'Student Pay',
-  //   images: [
-  //     {
-  //       url: 'https://student-pay.sevalla.app/og-img.png',
-  //       width: 1200,
-  //       height: 630,
-  //       alt: 'Student Pay - Seamless payment and receipt generation for university departments and students.',
-  //     },
-  //   ],
-  //   locale: 'en_US',
-  //   type: 'website',
-  // },
+  openGraph: {
+    title: 'Student Pay',
+    description: 'Seamless payment and receipt generation for university departments and students. Secure. Simple. Fast.',
+    url: 'https://student-pay.sevalla.app',
+    siteName: 'Student Pay',
+    images: [
+      {
+        url: 'https://student-pay.sevalla.app/opengraph-image.png',
+        width: 1200,
+        height: 630,
+        alt: 'Student Pay - Seamless payment and receipt generation for university departments and students.',
+      },
+    ],
+    locale: 'en_US',
+    type: 'website',
+  },
 }
 
 export default function RootLayout({
