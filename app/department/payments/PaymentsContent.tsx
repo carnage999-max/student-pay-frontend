@@ -110,6 +110,7 @@ export default function PaymentsContent() {
                 <button
                     onClick={openCreate}
                     className="px-4 py-2 bg-emerald-600 text-white rounded hover:bg-emerald-700"
+                    title="Add a new payment"
                 >
                     + New Payment
                 </button>
@@ -134,12 +135,14 @@ export default function PaymentsContent() {
                                     <button
                                         onClick={() => openEdit(p)}
                                         className="px-3 py-1 bg-blue-500 text-white rounded hover:bg-blue-600"
+                                        title="Edit payment"
                                     >
                                         Edit
                                     </button>
                                     <button
                                         onClick={() => deletePayment(p.id)}
                                         className="px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600"
+                                        title="Delete payment"
                                     >
                                         Delete
                                     </button>
@@ -174,6 +177,7 @@ export default function PaymentsContent() {
                             value={title}
                             onChange={(e) => setTitle(e.target.value)}
                             className="w-full p-2 border rounded mb-3"
+                            title="Enter payment title"
                         />
                         <input
                             type="number"
@@ -181,6 +185,7 @@ export default function PaymentsContent() {
                             value={amount}
                             onChange={(e) => setAmount(e.target.value)}
                             className="w-full p-2 border rounded mb-3"
+                            title="Enter payment amount"
                         />
                         <div className="flex justify-end gap-2">
                             <button

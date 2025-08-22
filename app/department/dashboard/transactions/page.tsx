@@ -230,6 +230,37 @@ export default function TransactionsPage() {
                 >
                     {showAll ? 'Show Paginated' : 'Show All'}
                 </button>
+
+                <button className='bg-gray-200 text-gray-800 px-4 py-2 rounded hover:bg-gray-300 w-full sm:w-auto'
+                onClick={() => {
+                    const res = fetch(
+                        `${process.env.NEXT_PUBLIC_API_BASE_URL}/pay/export-transactions/`,
+                        {
+                            headers: {
+                                Authorization: `Bearer ${localStorage.getItem('access_token') || ''}`,
+                            },
+                        }
+                    )
+                    res.then(response => {
+                        if (response.ok) {
+                            return response.blob();
+                        } else {
+                            throw new Error('Failed to export transactions');
+                        }
+                    }).then(blob => {
+                        const url = window.URL.createObjectURL(blob);
+                        const a = document.createElement('a');
+                        a.href = url;
+                        a.download = 'transactions.csv';
+                        document.body.appendChild(a);
+                        a.click();
+                        a.remove();
+                    }).catch(err => {
+                        console.error('Export failed:', err);
+                    });
+                }}>
+                    Export as CSV
+                </button>
                 
             </div>
 

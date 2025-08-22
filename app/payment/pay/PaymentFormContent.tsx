@@ -109,6 +109,7 @@ export default function PaymentFormContent() {
                             placeholder="Email"
                             required
                             className={INPUT}
+                            title="Enter your email address"
                         />
                         <input
                             type="text"
@@ -118,6 +119,7 @@ export default function PaymentFormContent() {
                             placeholder="First Name"
                             required
                             className={INPUT}
+                            title="Enter your first name"
                         />
                         <input
                             type="text"
@@ -127,6 +129,7 @@ export default function PaymentFormContent() {
                             placeholder="Last Name"
                             required
                             className={INPUT}
+                            title="Enter your last name"
                         />
                         <input
                             type="text"
@@ -134,11 +137,13 @@ export default function PaymentFormContent() {
                             value={`Amount: ${payment?.amount_due ?? ""}`}
                             readOnly
                             className={INPUT}
+                            title="Payment amount"
                         />
                         <button
                             type="submit"
                             disabled={submitting}
                             className={BUTTON_PRIMARY}
+                            title="Pay now"
                         >
                             {submitting ? "Processing..." : `Pay now => ${payment?.amount_due ?? ""}`}
                         </button>

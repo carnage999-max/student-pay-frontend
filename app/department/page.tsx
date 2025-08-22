@@ -117,12 +117,14 @@ export default function DepartmentProfilePage() {
                     src={currentPreview ?? "/placeholder.png"}
                     alt={`${label} Preview`}
                     className="w-full h-full object-cover"
+                    title="Click to change image"
                 />
                 <input
                     type="file"
                     accept="image/*"
                     onChange={(e) => handleImageChange(e, setter, previewSetter)}
                     className="absolute inset-0 opacity-0 cursor-pointer"
+                    title="Click to change image"
                 />
             </label>
         </div>
@@ -142,6 +144,7 @@ export default function DepartmentProfilePage() {
                         <input
                             {...register("dept_name")}
                             className="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-sm text-gray-900 bg-gray-50 focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                            title="Enter your department name"
                         />
                         {errors.dept_name && (
                             <p className="text-red-500 text-sm">{errors.dept_name.message}</p>
@@ -154,6 +157,7 @@ export default function DepartmentProfilePage() {
                         <select
                             {...register("bank_name")}
                             className="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-sm text-gray-900 bg-gray-50 focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                            title="Select your bank"
                         >
                             <option value="">Select a bank</option>
                             {banks.map((bank) => (
@@ -173,6 +177,7 @@ export default function DepartmentProfilePage() {
                         <input
                             {...register("account_number")}
                             className="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-sm text-gray-900 bg-gray-50 focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                            title="Enter your account number"
                         />
                         {errors.account_number && (
                             <p className="text-red-500 text-sm">{errors.account_number.message}</p>
@@ -201,6 +206,7 @@ export default function DepartmentProfilePage() {
                         type="submit"
                         disabled={isSubmitting}
                         className="w-full text-white bg-emerald-600 hover:bg-emerald-700 focus:ring-4 focus:ring-emerald-300 font-medium rounded-lg text-sm py-2.5 transition"
+                        title="Update Information"
                     >
                         {isSubmitting ? "Updating..." : "Update Profile"}
                     </button>
@@ -216,6 +222,7 @@ export default function DepartmentProfilePage() {
                         <button
                             className="bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded"
                             onClick={() => setShowModal(false)}
+                            title="Close modal"
                         >
                             Close
                         </button>

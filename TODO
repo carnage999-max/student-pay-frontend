@@ -1,5 +1,6 @@
-add title attributes for elements to give information
+add title attributes for elements to give information(done)
 improve user experience 
-integrate pending endpoints
-add file size and type restrictions for file uploads
-add export to csv for transactions
+integrate pending endpoints - generate receipt
+add file size and type restrictions for file uploads(done)
+add export to csv for transactions(done)
+retouch charts in dashboard page
