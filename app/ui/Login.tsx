@@ -27,19 +27,18 @@ export default function Login() {
             });
 
             const data = await res.json();
-            console.log(data);
-
 
             if (!res.ok) {
-                setError(data.message || "Login failed");
+                setError(data.error || "Login failed");
                 return;
             }
 
+            // Store authentication data
             localStorage.setItem("access_token", data.access_token);
             localStorage.setItem("refresh_token", data.refresh_token);
             localStorage.setItem("department_id", data.department_id);
+            window.location.href = "/department/dashboard";
 
-            window.location.href = "/department"; // Redirect on success
         } catch (err) {
             setError("Something went wrong");
         } finally {

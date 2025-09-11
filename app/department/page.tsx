@@ -122,7 +122,7 @@ export default function DepartmentProfilePage() {
                 <input
                     type="file"
                     accept="image/*"
-                    onChange={(e) => handleImageChange(e, setter, previewSetter)}
+                    disabled
                     className="absolute inset-0 opacity-0 cursor-pointer"
                     title="Click to change image"
                 />

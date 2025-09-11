@@ -45,18 +45,27 @@ export default function Signup() {
             })
 
             const data = await res.json()
-            if (res.ok) {
-                localStorage.setItem("access_token", data.access_token);
-                localStorage.setItem("refresh_token", data.refresh_token);
-                localStorage.setItem("department_id", data.department_id);
-                window.location.href = "/department";
-            }
+
             if (!res.ok) {
-                setErrors(data.errors || { general: "Signup failed" })
+                setErrors(data.error || { general: "Signup failed" })
                 return
             }
 
-            // redirect or show success message
+            if (res.ok) {
+                // Store tokens for future use
+                localStorage.setItem("access_token", data.access_token);
+                localStorage.setItem("refresh_token", data.refresh_token);
+                localStorage.setItem("department_id", data.department_id);
+
+                // Check verification status
+                if (data.is_verified) {
+                    // Rare case - account is pre-approved
+                    window.location.href = "/department/payments";
+                } else {
+                    // Normal flow - account needs verification
+                    window.location.href = "/department/verification-pending";
+                }
+            }
         } catch (err) {
             setErrors({ general: "Something went wrong" })
         } finally {
