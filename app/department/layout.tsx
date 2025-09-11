@@ -70,7 +70,7 @@ export default function DepartmentLayout({ children }: { children: ReactNode }) 
         { href: '/', label: 'Home', icon: <Home size={18} /> },
         { href: '/department/dashboard', label: 'Dashboard', icon: <LayoutDashboard size={18} /> },
         { href: '/department/payments', label: 'Payments(Dues)', icon: <HandCoins size={18} /> },
-        { href: '/department', label: 'Manage Info', icon: <Settings size={18} /> },
+        { href: '/department', label: 'Department Info', icon: <Settings size={18} /> },
     ];
 
     const unauthNavItems = [
