@@ -17,7 +17,7 @@ export default function PaymentLayout({ children }: { children: ReactNode }) {
 function PaymentLayoutContent({ children }: { children: ReactNode }) {
     const searchParams = useSearchParams();
     const department_id = searchParams.get("department_id");
-    const backLink = department_id ? `/department/payment/` : "/";
+    const backLink = department_id ? `/department/departments/` : "/";
 
     return (
         <div className="flex items-center justify-center min-h-screen bg-gray-50 px-4">
