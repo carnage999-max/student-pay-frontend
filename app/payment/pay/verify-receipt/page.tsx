@@ -2,25 +2,14 @@
 
 import { useEffect, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
-import { CheckCircle, XCircle, AlertCircle, Clock, CreditCard, Building2, User, Hash } from 'lucide-react';
-
-type ReceiptData = {
-    id: string;
-    amount: number;
-    payment_name: string;
-    payer_name: string;
-    payer_email: string;
-    department_name: string;
-    payment_date: string;
-    reference: string;
-    status: string;
-    hash: string;
-};
+import { CheckCircle, XCircle, AlertCircle, Clock, CreditCard, Building2, Hash } from 'lucide-react';
 
 type VerificationResult = {
-    valid: boolean;
-    receipt_data?: ReceiptData;
-    message: string;
+    status: string;
+    transaction_id?: string;
+    amount?: number;
+    date?: string;
+    department?: string;
 };
 
 export default function VerifyReceiptPage() {
@@ -46,11 +35,10 @@ export default function VerifyReceiptPage() {
 
                 const data = await res.json();
 
-                if (res.ok) {
-                    console.log(data);
+                if (res.ok && data.status === 'valid') {
                     setVerificationResult(data);
                 } else {
-                    setError(data.message || 'Failed to verify receipt');
+                    setError(data.detail || 'Receipt not found or invalid');
                 }
             } catch (err) {
                 setError('Network error occurred while verifying receipt');
@@ -110,14 +98,14 @@ export default function VerifyReceiptPage() {
         );
     }
 
-    if (!verificationResult?.valid) {
+    if (!verificationResult || verificationResult.status !== 'valid') {
         return (
             <div className="min-h-screen bg-gray-50 flex items-center justify-center px-4">
                 <div className="bg-white rounded-2xl shadow-md border border-gray-200 p-8 max-w-md w-full text-center">
                     <AlertCircle className="w-16 h-16 text-amber-500 mx-auto mb-4" />
                     <h1 className="text-2xl font-bold text-gray-900 mb-2">Receipt Invalid</h1>
                     <p className="text-gray-600 mb-6">
-                        {verificationResult?.message || 'This receipt could not be verified.'}
+                        This receipt could not be verified or does not exist in our system.
                     </p>
                     <a
                         href="/"
@@ -129,8 +117,6 @@ export default function VerifyReceiptPage() {
             </div>
         );
     }
-
-    const receipt = verificationResult.receipt_data;
 
     return (
         <div className="min-h-screen bg-gray-50 py-8 px-4">
@@ -145,117 +131,87 @@ export default function VerifyReceiptPage() {
                 </div>
 
                 {/* Receipt Details */}
-                {receipt && (
-                    <div className="bg-white rounded-2xl shadow-md border border-gray-200 p-8">
-                        <div className="text-center mb-8">
-                            <h2 className="text-xl font-bold text-gray-900 mb-2">Payment Receipt</h2>
-                            <p className="text-gray-600">Transaction Details</p>
+                <div className="bg-white rounded-2xl shadow-md border border-gray-200 p-8">
+                    <div className="text-center mb-8">
+                        <h2 className="text-xl font-bold text-gray-900 mb-2">Transaction Receipt</h2>
+                        <p className="text-gray-600">Payment Verification Details</p>
+                    </div>
+
+                    <div className="space-y-6">
+                        {/* Transaction ID */}
+                        <div className="bg-emerald-50 border border-emerald-200 rounded-lg p-6 text-center">
+                            <div className="flex items-center justify-center space-x-2 mb-2">
+                                <Hash className="w-5 h-5 text-emerald-600" />
+                                <p className="text-sm font-medium text-emerald-800">Transaction ID</p>
+                            </div>
+                            <p className="text-lg font-bold text-emerald-900 font-mono">{verificationResult.transaction_id}</p>
                         </div>
 
-                        <div className="space-y-6">
-                            {/* Payment Information */}
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                <div className="bg-emerald-50 border border-emerald-200 rounded-lg p-4">
-                                    <div className="flex items-center space-x-3">
-                                        <CreditCard className="w-5 h-5 text-emerald-600" />
-                                        <div>
-                                            <p className="text-xs font-medium text-emerald-800">Payment</p>
-                                            <p className="text-sm font-semibold text-emerald-900">{receipt.payment_name}</p>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
-                                    <div className="flex items-center space-x-3">
-                                        <Building2 className="w-5 h-5 text-blue-600" />
-                                        <div>
-                                            <p className="text-xs font-medium text-blue-800">Department</p>
-                                            <p className="text-sm font-semibold text-blue-900">{receipt.department_name}</p>
-                                        </div>
+                        {/* Amount and Department */}
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                                <div className="flex items-center space-x-3">
+                                    <CreditCard className="w-5 h-5 text-blue-600" />
+                                    <div>
+                                        <p className="text-xs font-medium text-blue-800">Amount Paid</p>
+                                        <p className="text-lg font-semibold text-blue-900">
+                                            {formatCurrency(verificationResult.amount || 0)}
+                                        </p>
                                     </div>
                                 </div>
                             </div>
 
-                            {/* Amount */}
-                            <div className="bg-gray-50 border border-gray-200 rounded-lg p-6 text-center">
-                                <p className="text-sm font-medium text-gray-600 mb-2">Amount Paid</p>
-                                <p className="text-3xl font-bold text-gray-900">{formatCurrency(receipt.amount)}</p>
-                            </div>
-
-                            {/* Payer Information */}
-                            <div className="border-t border-gray-200 pt-6">
-                                <h3 className="text-lg font-semibold text-gray-900 mb-4">Payer Information</h3>
-                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                    <div className="flex items-center space-x-3">
-                                        <User className="w-5 h-5 text-gray-500" />
-                                        <div>
-                                            <p className="text-xs font-medium text-gray-500">Full Name</p>
-                                            <p className="text-sm font-semibold text-gray-900">{receipt.payer_name}</p>
-                                        </div>
-                                    </div>
-                                    <div className="flex items-center space-x-3">
-                                        <span className="text-gray-500">@</span>
-                                        <div>
-                                            <p className="text-xs font-medium text-gray-500">Email</p>
-                                            <p className="text-sm font-semibold text-gray-900">{receipt.payer_email}</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            {/* Transaction Details */}
-                            <div className="border-t border-gray-200 pt-6">
-                                <h3 className="text-lg font-semibold text-gray-900 mb-4">Transaction Details</h3>
-                                <div className="space-y-3">
-                                    <div className="flex justify-between items-center">
-                                        <span className="text-sm text-gray-600">Reference</span>
-                                        <span className="text-sm font-medium text-gray-900 font-mono">{receipt.reference}</span>
-                                    </div>
-                                    <div className="flex justify-between items-center">
-                                        <span className="text-sm text-gray-600">Date & Time</span>
-                                        <span className="text-sm font-medium text-gray-900">{formatDate(receipt.payment_date)}</span>
-                                    </div>
-                                    <div className="flex justify-between items-center">
-                                        <span className="text-sm text-gray-600">Status</span>
-                                        <span className="text-sm font-medium text-emerald-600 capitalize">{receipt.status}</span>
-                                    </div>
-                                </div>
-                            </div>
-
-                            {/* Receipt Hash */}
-                            <div className="bg-gray-50 border border-gray-200 rounded-lg p-4">
-                                <div className="flex items-start space-x-3">
-                                    <Hash className="w-5 h-5 text-gray-500 mt-0.5" />
-                                    <div className="flex-1">
-                                        <p className="text-xs font-medium text-gray-600 mb-1">Receipt Hash</p>
-                                        <p className="text-xs font-mono text-gray-800 break-all">{receipt.hash}</p>
+                            <div className="bg-purple-50 border border-purple-200 rounded-lg p-4">
+                                <div className="flex items-center space-x-3">
+                                    <Building2 className="w-5 h-5 text-purple-600" />
+                                    <div>
+                                        <p className="text-xs font-medium text-purple-800">Department</p>
+                                        <p className="text-lg font-semibold text-purple-900">{verificationResult.department}</p>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
-                        {/* Footer */}
-                        <div className="mt-8 pt-6 border-t border-gray-200 text-center">
-                            <p className="text-xs text-gray-500 mb-4">
-                                This receipt has been digitally verified through StudentPay platform
-                            </p>
-                            <div className="flex flex-col sm:flex-row gap-3 justify-center">
-                                <a
-                                    href="/"
-                                    className="bg-emerald-600 hover:bg-emerald-700 text-white font-medium py-2.5 px-6 rounded-lg transition-colors"
-                                >
-                                    Go to Homepage
-                                </a>
-                                <button
-                                    onClick={() => window.print()}
-                                    className="bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium py-2.5 px-6 rounded-lg transition-colors"
-                                >
-                                    Print Receipt
-                                </button>
+                        {/* Payment Date */}
+                        <div className="border border-gray-200 rounded-lg p-4">
+                            <div className="flex items-center space-x-3">
+                                <Clock className="w-5 h-5 text-gray-600" />
+                                <div>
+                                    <p className="text-xs font-medium text-gray-600">Payment Date & Time</p>
+                                    <p className="text-lg font-semibold text-gray-900">
+                                        {verificationResult.date ? formatDate(verificationResult.date) : 'N/A'}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Receipt Hash */}
+                        <div className="bg-gray-50 border border-gray-200 rounded-lg p-4">
+                            <div className="flex items-start space-x-3">
+                                <Hash className="w-5 h-5 text-gray-500 mt-0.5" />
+                                <div className="flex-1">
+                                    <p className="text-xs font-medium text-gray-600 mb-1">Receipt Hash</p>
+                                    <p className="text-xs font-mono text-gray-800 break-all">{receiptHash}</p>
+                                </div>
                             </div>
                         </div>
                     </div>
-                )}
+
+                    {/* Footer */}
+                    <div className="mt-8 pt-6 border-t border-gray-200 text-center">
+                        <p className="text-xs text-gray-500 mb-4">
+                            This receipt has been digitally verified through StudentPay platform
+                        </p>
+                        <div className="flex flex-col sm:flex-row gap-3 justify-center">
+                            <a
+                                href="/"
+                                className="bg-emerald-600 hover:bg-emerald-700 text-white font-medium py-2.5 px-6 rounded-lg transition-colors"
+                            >
+                                Go to Homepage
+                            </a>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     );
