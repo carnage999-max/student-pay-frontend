@@ -7,6 +7,7 @@ import DepartmentModal from '@/app/ui/payment/DepartmentModal';
 type Department = {
     id: string;
     dept_name: string;
+    logo_url?: string;
 };
 
 export default function DepartmentPaymentPage() {
@@ -42,6 +43,11 @@ export default function DepartmentPaymentPage() {
                             className="bg-white shadow rounded p-4 cursor-pointer hover:bg-blue-50 transition"
                             onClick={() => setSelectedDept(dept)}
                         >
+                            <img
+                                src={dept.logo_url}
+                                alt={dept.dept_name}
+                                className="w-16 h-16 object-cover rounded"
+                            />
                             <h2 className="text-lg font-medium text-gray-700">{dept.dept_name}</h2>
                         </div>
                     ))}

@@ -97,7 +97,7 @@ export default function DepartmentLayout({ children }: { children: ReactNode }) 
             {/* Mobile top header */}
             <header className="md:hidden w-full bg-white shadow-sm flex items-center justify-between px-4 py-3">
                 <div className="flex items-center gap-3">
-                    <Link href="/" className="flex items-center gap-3">
+                    <Link href="/" className="flex items-center gap-3 cursor-pointer">
                         {deptLogo ? (
                             <img src={deptLogo} alt="Dept Logo" className="w-8 h-8 rounded-full object-cover border" />
                         ) : (
@@ -105,7 +105,7 @@ export default function DepartmentLayout({ children }: { children: ReactNode }) 
                                 D
                             </div>
                         )}
-                        <span className="font-semibold text-sm">{deptName ?? 'Dept Panel'}</span>
+                        <span className="font-semibold text-sm border-0 rounded p-2 bg-emerald-100">{deptName ?? 'Home'}</span>
                     </Link>
                 </div>
 

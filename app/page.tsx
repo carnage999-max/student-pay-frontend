@@ -148,7 +148,7 @@ export default function HomePage() {
               aria-describedby="dept-desc"
             >
               <User className="w-5 h-5 text-emerald-600" />
-              <span>{loggedIn ? "Update Profile" : "Department Login"}</span>
+              <span>{loggedIn ? "Profile" : "Department Login"}</span>
             </Link>
           </div>
 
