@@ -1,0 +1,80 @@
+{
+"display_override": ["window-controls-overlay"], 
+  "name": "StudentPay - University Payment Platform",
+  "short_name": "StudentPay",
+  "start_url": "/",
+  "display": "standalone",
+  "description": "Payment management platform for Nigerian university departments and students. Create payments, process transactions, and generate verified receipts.",
+  "lang": "en",
+  "dir": "ltr",
+  "theme_color": "#059669",
+  "background_color": "#f0fdf4",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "id": "studentpay-app",
+  "categories": ["education", "finance", "productivity"],
+  "icons": [
+    {
+      "src": "/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable any"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/screenshots/desktop-home.png",
+      "sizes": "1920x1015",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "Department Dashboard"
+    },
+    {
+      "src": "/screenshots/mobile-dashboard.jpg",
+      "sizes": "1080x2400",
+      "type": "image/jpeg",
+      "form_factor": "narrow",
+      "label": "Student Payment Flow"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Dashboard",
+      "url": "/department/dashboard",
+      "description": "Access your department dashboard"
+    },
+    {
+      "name": "Create Fee",
+      "url": "/department/payments/",
+      "description": "Create a new fee"
+    },
+    {
+      "name": "View Departments",
+      "url": "/department/departments",
+      "description": "View all departments"
+    }
+  ],
+  "prefer_related_applications": false,
+  "edge_side_panel": {
+    "preferred_width": 400
+  },
+  "launch_handler": {
+    "client_mode": "navigate-existing"
+  },
+  "protocol_handlers": [
+    {
+      "protocol": "web+studentpay",
+      "url": "/verify-receipt?hash=%s"
+    },
+    {
+      "protocol": "web+receipt",
+      "url": "/verify-receipt?hash=%s"
+    }
+  ]
+}
