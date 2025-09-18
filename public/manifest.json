@@ -1,6 +1,6 @@
 {
 "display_override": ["window-controls-overlay"], 
-  "name": "StudentPay - University Payment Platform",
+  "name": "StudentPay",
   "short_name": "StudentPay",
   "start_url": "/",
   "display": "standalone",
@@ -76,5 +76,6 @@
       "protocol": "web+receipt",
       "url": "/verify-receipt?hash=%s"
     }
-  ]
+  ],
+  "capture_links": "existing-client-new-client"
 }

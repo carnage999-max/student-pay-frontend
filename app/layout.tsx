@@ -3,6 +3,7 @@
 import "./globals.css";
 import { registerServiceWorker } from '@/app/lib/sw-registration';
 import { useEffect } from 'react';
+import FloatingInstallBubble from './ui/FloatingInstallBubble';
 
 
 export default function RootLayout({
@@ -32,10 +33,9 @@ export default function RootLayout({
         <meta property="og:description" content="StudentPay makes departmental payments simple and secure. Students can quickly pay their fees, while departments manage, track, and generate receipts with ease. Fast, mobile-friendly, and built for a seamless university experience." />
         <meta property="og:site_name" content="Student Pay" />
         <meta property="og:url" content="https://student-pay.sevalla.app" />
-        <meta property="og:image" content="https://student-pay.sevalla.app/student-pay-logo.jpg" />
+        <meta property="og:image" content="https://student-pay.sevalla.app/student-pay-logo.png" />
         <link rel="preload" href="/manifest.json" />
         <link rel="manifest" href="/manifest.json" />
-        <link rel="stylesheet" href="/css/native-like-experience.css" />
         <meta name="theme-color" content="#059669" />
         <script async src="https://unpkg.com/pwacompat" crossOrigin="anonymous"></script>
         <link rel="apple-touch-icon" href="/icons/apple-icon.png" />
@@ -50,7 +50,7 @@ export default function RootLayout({
       </head>
       <body>
         {children}
-
+        <FloatingInstallBubble />
       </body>
     </html>
   );

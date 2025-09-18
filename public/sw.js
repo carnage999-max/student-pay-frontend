@@ -14,7 +14,6 @@ const STATIC_ASSETS = [
 // Critical routes that should NEVER be cached or intercepted
 const PAYMENT_ROUTES = [
     '/payment/pay/success',
-    '/payment/pay/callback',
     '/verify-receipt'
 ];
 
