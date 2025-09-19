@@ -13,7 +13,8 @@ import {
   CheckCircle,
   X,
   Sparkles,
-  ChevronRight
+  ChevronRight,
+  VerifiedIcon
 } from 'lucide-react';
 
 export default function HomePage() {
@@ -144,11 +145,19 @@ export default function HomePage() {
 
             <Link
               href={loggedIn ? "/department" : "/department/login"}
-              className="flex items-center gap-3 bg-white/90 hover:bg-gray-50 text-gray-900 px-6 py-3 rounded-md font-medium shadow-sm transition w-full sm:w-auto justify-center"
+              className="flex items-center gap-3 border border-emerald-600 text-emerald-700 bg-white hover:bg-emerald-50 px-6 py-3 rounded-md font-semibold shadow-sm w-full sm:w-auto justify-center"
               aria-describedby="dept-desc"
             >
               <User className="w-5 h-5 text-emerald-600" />
-              <span>{loggedIn ? "Profile" : "Department Login"}</span>
+              <span>{loggedIn ? "Profile" : "Department Exco Login"}</span>
+            </Link>
+
+            <Link
+              href="/payment/pay/verify-receipt"
+              className="flex items-center gap-3 bg-transparent border border-gray-200 text-gray-700 px-6 py-3 rounded-md font-medium w-full sm:w-auto justify-center"
+            >
+              <VerifiedIcon className="w-5 h-5 text-gray-600" />
+              <span>Verify a receipt</span>
             </Link>
           </div>
 

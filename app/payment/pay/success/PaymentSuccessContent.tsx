@@ -81,7 +81,7 @@ export default function PaymentSuccessContent() {
                 ✅ Payment Successful
             </h1>
             <p className="text-center text-gray-600 mb-8">
-                Your payment was successful. Check your e-mail for a copy of the receipt. You can also view or download your receipt below.
+                Your payment was successful. Check your e-mail(spam folder) for a copy of the receipt. You can also view or download your receipt below.
             </p>
             <div className="rounded-md overflow-hidden border border-gray-200 shadow">
                 <div className="flex justify-center overflow-auto">
