@@ -145,7 +145,7 @@ export default function PaymentFormContent() {
                             className={BUTTON_PRIMARY}
                             title="Pay now"
                         >
-                            {submitting ? "Processing..." : `Pay now => ${payment?.amount_due ?? ""}`}
+                            {submitting ? "Processing..." : `Pay now`}
                         </button>
                         {error && <p className="text-red-600">{error}</p>}
                         {success && <p className="text-green-600">{success}</p>}
