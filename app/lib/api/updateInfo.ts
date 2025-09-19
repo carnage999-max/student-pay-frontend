@@ -5,7 +5,7 @@ export async function updateDepartmentInfo(formData: FormData, token: string) {
         headers: {
             Authorization: `Bearer ${token}`,
         },
-        body: formData, // Don't set content-type; browser handles it
+        body: formData,
     });
 
     if (!res.ok) throw new Error("Failed to update department info");

@@ -1,4 +1,3 @@
-// app/payment/layout.tsx
 "use client";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
@@ -20,15 +19,15 @@ function PaymentLayoutContent({ children }: { children: ReactNode }) {
     const backLink = department_id ? `/department/departments/` : "/";
 
     return (
-        <div className="flex items-center justify-center min-h-screen bg-gray-50 px-4">
-            <div className="w-full max-w-md bg-white p-8 rounded-2xl shadow-md border border-gray-200">
-                <header className="flex items-center justify-between mb-6">
-                    <h1 className="text-2xl font-bold text-black">Student Payment Portal</h1>
+        <div className="flex items-center justify-center min-h-screen bg-gray-50 px-4 py-6">
+            <div className="w-full max-w-4xl sm:max-w-3xl bg-white p-4 sm:p-8 rounded-2xl shadow-md border border-gray-200">
+                <header className="flex items-center justify-between mb-4 sm:mb-6">
+                    <h1 className="text-lg sm:text-2xl font-bold text-black">Student Payment Portal</h1>
                     <Link href={backLink} className={BUTTON_SECONDARY}>
                         ← Leave Payment
                     </Link>
                 </header>
-                <div className="bg-white shadow-md rounded-lg p-6">{children}</div>
+                <div className="bg-transparent shadow-none rounded-lg p-0 sm:p-6">{children}</div>
             </div>
         </div>
     );
