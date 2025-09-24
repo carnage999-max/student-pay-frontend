@@ -122,7 +122,7 @@ export default function HomePage() {
         <div className="w-full max-w-5xl text-center px-4">
           <div className="mb-6">
             <h1 className="text-4xl md:text-5xl font-bold text-emerald-700 mb-3 drop-shadow-sm">
-              Welcome to StudentPay <span className="inline-block transform translate-y-0.5">🎓</span>
+              Student Payment Portal <span className="inline-block transform translate-y-0.5">🎓</span>
             </h1>
 
             <p className="text-gray-700 text-lg max-w-2xl mx-auto">

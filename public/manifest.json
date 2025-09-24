@@ -1,6 +1,6 @@
 {
 "display_override": ["window-controls-overlay"], 
-  "name": "StudentPay",
+  "name": "Student Payment Portal",
   "short_name": "StudentPay",
   "start_url": "/",
   "display": "standalone",
